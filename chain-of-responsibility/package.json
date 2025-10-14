@@ -1,5 +1,5 @@
 {
-  "name": "design-patterns",
+  "name": "chain-of-responsibility",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,12 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/reveal.js": "^5.2.1",
     "typescript": "~5.9.3",
     "vite": "^7.1.7"
   },
   "dependencies": {
-    "@types/reveal": "^4.2.0",
+    "@types/reveal.js": "^5.2.1",
     "reveal.js": "^5.2.1"
   }
 }
