@@ -10,12 +10,535 @@
         <div class="reveal">
             <div class="slides">
                 <section>
-                    <section>text1.1</section>
-                    <section>text1.2</section>
-                </section>
-                <section>
-                    <section>text2.1</section>
-                    <section>text2.2</section>
+                    <section style="height: 100%;">
+                        <div style="height: 100%;display: flex;">
+                            <div style="flex: 1;border-right: 1px solid grey;display: flex;flex-direction: column;justify-content: space-between;align-items: center;padding: 3rem;">
+                                <h3 style="text-transform: none;">Chain of Responsibility</h3>
+                                <img src="./public/assets/chain-of-responsibility.png" width="100%" alt="">
+                                <p style="font-size: 1.8rem;">Presented by: Karim Khili</p>
+                            </div>
+
+                            <div style="flex:1;display: flex;flex-direction: column;justify-content: space-between;align-items: center;padding: 3rem;">
+                                <h3 style="text-transform: none;">Observer</h3>
+                                <img src="./public/assets/observer.png" width="100%" alt="">
+                                <p style="font-size: 1.8rem;">Presented by: Ahmed Omar Ben Hazem</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <div>
+                            <h2 style="text-transform: none;">Plan</h2>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-auto-animate>
+                        <div style="height: 100%;">
+                            <h2 style="text-transform: none;">Plan</h2>
+                            <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin-top: 8rem;">
+                                <ul>
+                                    <li>Definitions:</li>
+                                    <ul>
+                                        <li>Behavioral Design Patterns</li>
+                                        <li>Object Collaboration</li>
+                                        <ul>
+                                            <li>Requests</li>
+                                            <li>Contexts</li>
+                                        </ul>
+                                    </ul>
+                                    <li style="margin-top: 3rem;">Behavioral Design patterns:</li>
+                                    <ul>
+                                        <li>Chain of Responsibility</li>
+                                        <li>Observer</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <div>
+                            <h2 class="slide-title">Requests <strong style="color: #f95d6f;">in OOP</strong></h2>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-auto-animate>
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Requests <strong style="color: #f95d6f;">in OOP</strong></h2>
+
+                            <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 5rem;">
+                                <div style="text-align: start;padding: 3rem;flex: 1;">
+                                    <ul class="slide-bulletpoints">
+                                        <li style="margin-bottom: 2rem;color:#06d6a0;"><strong>Messages</strong> <span style="color: white;">passed between objects.</span></li>
+                                        <li style="color: #6fc5ff;font-weight: 600;">Queries:</li>
+                                        <ul>
+                                            <li>A request to <strong style="color: #06d6a0;">retrieve data.</strong></li>
+                                        </ul>
+                                        <li style="color: #6fc5ff;font-weight: 600;margin-top: 1rem;">Commands:</li>
+                                        <ul>
+                                            <li>A request to <strong style="color: #06d6a0;">perform logic.</strong></li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1;">
+                                    <pre>
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|4-6|14-16" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem;">
+class A
+{
+public:
+    void m1() { 
+        std::println("Message Received"); 
+    }    
+};
+
+class B
+{
+public:
+    B(A a): _a(a) {}
+    
+    void m2() { 
+        _a.m1(); 
+    }    
+private:
+    A _a;
+};
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <div>
+                            <h2 class="slide-title">Contexts <strong style="color: #f95d6f;">in OOP</strong></h2>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-auto-animate>
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Contexts <strong style="color: #f95d6f;">in OOP</strong></h2>
+
+                            <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 5rem;">
+                                <div style="text-align: start;padding: 3rem;flex: 3;">
+                                    <ul class="slide-bulletpoints">
+                                        <li style="color: #6fc5ff;font-weight: 600;">Encapsulates state/config:</li>
+                                        <ul>
+                                            <li>Passed around between collaborating objects.</li>
+                                        </ul>
+                                        <li style="color: #6fc5ff;font-weight: 600;margin-top: 2rem;">Scoped Lifetime:</li>
+                                        <ul>
+                                            <li>Exists during a specific scope. Not global.</li>
+                                        </ul>
+                                        <li style="color: #6fc5ff;font-weight: 600;margin-top: 2rem;">Prevents Parameter Explosion:</li>
+                                        <ul>
+                                            <li>Instead of passing 10 parameters to every function.</li>
+                                            <li>You pass one context object.</li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                                <div style="flex: 2;">
+                                    <pre>
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-4|9-11|19-23" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem;">
+struct Context 
+{
+    std::string message;
+};  
+
+class A
+{
+public:
+    void m1(Context c) { 
+        std::cout &lt;&lt; (c.message) &lt;&lt; std::endl; 
+    }    
+};
+
+class B
+{
+public:
+    B(A a): _a(a) {}
+    
+    void m2() {
+        Context c;
+        c.message = read_user_input();
+        
+        _a.m1(c);
+    }    
+private:
+    A _a;
+};
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">A Re-occurring Situation</h2>
+
+                            <div style="padding: 3rem;">
+                                <ul class="slide-bulletpoints">
+                                    <li>An object wants to perform a request: Sender</li>
+                                    <li>But it does not want to depend on who handles the request: Receiver(s)</li>
+                                    <li style="margin-bottom: 3rem;">The request can be processes by more than one handler.</li>
+
+                                </ul>
+                                <div style="text-align: start;font-size: 2rem;">
+                                    <h4 style="text-transform: none;">Constraints:</h4>
+                                    <ul>
+                                        <li style="margin-bottom: 1rem;">Handlers process the request sequentially.</li>
+                                        <li style="margin-bottom: 1rem;">Based on the request's context, the handler can decide to either:</li>
+                                        <ul>
+                                            <li>Perform the query or command and end further processing of the request</li>
+                                            <li>Pass the request to the next handler.</li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Real World Examples</h2>
+
+                            <div style="display: flex; justify-content: space-around;margin-top: 5rem;">
+                                <div style="flex: 1; padding: 0.5rem;border-right: 1px solid grey;">
+                                    <h4 style="text-transform: none;">HTTP Middleware</h4>
+                                    <ul>
+                                        <li style="font-size: 2rem;margin-bottom: 2rem;">In web frameworks, middleware components process HTTP requests in sequence.</li>
+                                        <li style="font-size: 2rem;">Each middleware can handle, modify, or pass the request down the chain.</li>
+                                    </ul>
+                                </div>
+
+                                <div style="flex: 1; padding: 0.5rem;border-right: 1px solid grey;">
+                                    <h4 style="text-transform: none;">Event Handling</h4>
+                                    <ul>
+                                        <li style="font-size: 2rem;margin-bottom: 2rem;">When an event occurs, it travels from the target element to the top element (window) passing through intermediate elements in the hierarchy.</li>
+                                        <li style="font-size: 2rem;">At each step, an element in that chain can:</li>
+                                        <ul>
+                                            <li style="font-size: 2rem;">Handle the event (e.g., event.stopPropagation())</li>
+                                            <li style="font-size: 2rem;">Pass it along to the next element.</li>
+                                        </ul>
+                                    </ul>
+                                </div>
+
+                                <div style="flex: 1; padding: 0.5rem;">
+                                    <h4 style="text-transform: none;">Technical Support</h4>
+                                    <ul>
+                                        <li style="font-size: 2rem;margin-bottom: 2rem;">In customer support workflows, requests may pass through different support tiers (Level 1, Level 2, etc.).</li>
+                                        <li style="font-size: 2rem;">Each level decides whether it can resolve the issue or escalate it to the next tier.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">HTTP Middleware</h2>
+
+                            <div style="font-size: 2rem;margin-top: 3rem;text-align: start;">
+                                <ul>
+                                    <li>A client requests a page to be rendered (an HTTP request):</li>
+                                    <ul>
+                                        <li>Without knowing the exact controller responsible: Routing System</li>
+                                        <li>Without knowing any intermediary processing that can be performed: Middleware</li>
+                                        <li>Based on the HTTP context, a handler may reject further processing: Authentification Failed</li>
+                                    </ul>
+                                </ul>
+                            </div>
+
+                            <div style="font-size: 2rem;margin-top: 3rem;padding-left: 3rem;font-size: 2rem;">
+                                <h4 style="text-transform: none;text-align: start;">ASP.NET Middleware:</h4>
+                                <ul class="slide-bulletpoints" style="margin-left: 5rem;">
+                                    <li style="color: #6fc5ff;font-weight: 600;">EndpointRoutingMiddleware:</li>
+                                    <ul>
+                                        <li>Defines the step where routing decisions are made.</li>
+                                        <li>Attaches an object of type Endpoint to the HttpContext.</li>
+                                    </ul>
+                                    <li style="color: #6fc5ff;font-weight: 600;margin-top: 2rem;">EndpointMiddleware:</li>
+                                    <ul>
+                                        <li>Executes the Endpoint attached to the HttpContext.</li>
+                                    </ul>
+                                    <li style="color: #6fc5ff;font-weight: 600;margin-top: 2rem;">Middleware:</li>
+                                    <ul>
+                                        <li>Middleware may observe or change the HttpContext.</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Attempts at a Solution</h2>
+                            
+                            <div style="display: flex;justify-content: space-around;">
+                                <div style="flex:3;">
+                                    <pre style="height: 650px;">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|19-27" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem;max-width: 700px;">
+public class Client
+{
+    private readonly AuthenticationHandler _authen;
+    private readonly RoutingHandler _routing;
+    private readonly AuthorizationHandler _author;
+    private readonly LoggingHandler _logging;
+    private readonly EndpointHandler _endpoint;
+
+    public Client(AuthenticationHandler authen, RoutingHandler routing, AuthorizationHandler author,
+                  LoggingHandler logging, EndpointHandler endpoint)
+    {
+        _authen = authen;
+        _routing = routing;
+        _author = author;
+        _logging = logging;
+        _endpoint = endpoint;
+    }
+
+    public void SendRequest(HttpContext httpContext)
+    {
+        if(_authen.Handle(context) == BREAK) return;
+        if(_routing.Handle(context) == BREAK) return;
+        if(_author.Handle(context) == BREAK) return;
+        if(_logging.Handle(context) == BREAK) return;
+        if(_endpoint.Handle(context) == BREAK) return;
+    }
+}
+                                        </code>
+                                    </pre>
+                                </div>
+    
+                                <div style="text-align: start;padding: 3rem;flex: 5;">
+                                    <h4 class="slide-subtitle" style="font-size: 3rem;text-align: center;">Naive Approach</h4>
+    
+    
+                                    <ul style="font-size: 2rem;" class="slide-bulletpoints">
+                                        <li>A series of function calls:</li>
+                                        <li>Cons:</li>
+                                        <ul class="slide-bulletpoints">
+                                            <li>Hard coupling between the sender and the receivers.</li>
+                                            <li>Can't change handlers or their order at runtime.</li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Attempts at a Solution</h2>
+
+                            <div style="display: flex;justify-content: space-around;">
+                                <div style="flex:3">
+                                    <pre style="height: 650px;">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-4|6-25|8-13|15-24" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem;max-width: 700px;">
+public interface IHandler
+{
+    void Handle(Context context);
+}
+
+public class Client
+{
+    private readonly List&lt;IHandler> _handlers;
+
+    public Client(List&lt;IHandler> handlers)
+    {
+        _handlers = handlers;
+    }
+
+    public void SendRequest(HttpContext httpContext)
+    {
+        foreach(var handler in _handlers)
+        {
+            if(handler.Handle(context) == BREAK)
+            {
+                break;
+            }
+        }
+    }
+}
+                                        </code>
+                                    </pre>
+                                </div>
+    
+                                <div style="text-align: start;padding: 3rem;flex: 5;">
+                                    <h4 class="slide-subtitle" style="font-size: 3rem;text-align: center;">A Dynamic Array</h4>
+                                    <ul style="font-size: 2rem;" class="slide-bulletpoints">
+                                        <li>We store handlers in a dynamic array.</li>
+                                        <li>Pros:</li>
+                                        <ul class="slide-bulletpoints">
+                                            <li>Decouple the sender from the receivers: IHandler interface</li>
+                                            <li>We can add and remove handlers at runtime by changing the injected object.</li>
+                                        </ul>
+                                        <li>Cons:</li>
+                                        <ul class="slide-bulletpoints">
+                                            <li>Mediocre to low Performance.</li>
+                                            <li>A list container introduces a lot of overhead:</li>
+                                            <ul>
+                                                <li>Insertion and deletion are expensive operations: Memory reallocations</li>
+                                                <li>Unneccesary data stored: size...</li>
+                                            </ul>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Solution</h2>
+
+                            <div style="display: flex;justify-content: space-around;">
+                                <div style="flex:3">
+                                    <pre style="height: 650px;">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem;max-width: 700px;">
+public interface IHandler
+{
+    IHandler setNext(IHandler handler);
+    void Handle(Context context);
+}
+
+public abstract class BaseHandler
+{
+    private next: IHandler;
+
+    IHandler setNext(IHandler handler);
+    void Handle(Context context);
+}
+
+public class Client
+{
+    private readonly IHandler _firstHandler;
+
+    public Client(IHandler firstHandler)
+    {
+        _firstHandler = firstHandler;
+    }
+
+    public void SendRequest(HttpContext httpContext)
+    {
+        _firstHandler.Handle(context);
+    }
+}
+                                        </code>
+                                    </pre>
+                                </div>
+    
+                                <div style="text-align: start;padding: 3rem;flex: 5;">
+                                    <h4 class="slide-subtitle" style="font-size: 3rem;text-align: center;">The Chain of Responsibility</h4>
+                                    <ul style="font-size: 2rem;" class="slide-bulletpoints">
+                                        <li>We use a linked list.</li>
+                                        <li>Decouple the sender from the receivers: IHandler interface</li>
+                                        <li>We can add and remove handlers at runtime by changing the injected object.</li>
+                                        <li>Pros:</li>
+                                        <ul>
+                                            <li>No memory reallocations.</li>
+                                            <li>Minimal storage space.</li>
+                                            <li>Ease of use.</li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 style="text-transform: none;">Chain of Responsibility</h2>
+                            <div style="display: flex;justify-content: center;">
+                                <img src="/assets/class-diagram-1.png" style="filter: invert(1);border-radius: 8px 0px 0px 8px;margin: 0;padding: 0;width: 350px;" alt="">
+                                <div style="display: flex;flex-direction: column;">
+                                    <img class="fragment" src="/assets/class-diagram-2.png" style="filter: invert(1);border-radius: 0px 8px 0px 0px;margin: 0;padding: 0;width: 335px;" alt="">
+                                    <img class="fragment" src="/assets/class-diagram-3.png" style="filter: invert(1);margin: 0;padding: 0;width: 335px;" alt="">
+                                    <img class="fragment" src="/assets/class-diagram-4.png" style="filter: invert(1);margin: 0;padding: 0;width: 335px;" alt="">
+                                    <img class="fragment" src="/assets/class-diagram-5.png" style="filter: invert(1);border-radius: 0px 0px 8px 0px;margin: 0;padding: 0;width: 335px;" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem;">Related Patterns</h2>
+
+                            <div style="margin: 3rem;text-align: start;">
+                                <h3 class="slide-subtitle" style="font-size: 3rem;">Builder</h3>
+                                <ul class="slide-bulletpoints" style="margin-left: 5rem;">
+                                    <li>Handler chains are complex objects that are built progressively.</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <pre>
+                                    <code class="language-cpp" data-trim data-noescape data-line-numbers style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem;">
+class ChainBuilder {
+    private IHandler head = null;
+
+    public IHandler UseMiddleware&lt;T&gt;() {
+        IHandler node = new T();
+
+        if(head)
+        {
+            node.setNext(head);
+        }
+
+        head = node;
+        return head;
+    }
+
+    public IHandler build() {
+        IHandler chain = head;
+        head = null;
+
+        return chain;
+    }
+}
+
+ChainBuilder builder = new ChainBuilder();
+cb
+    .UseMiddleware&lt;EndpointRoutingMiddleware>()
+    .UseMiddleware&lt;AuthentificationMiddleware>()
+    .UseMiddleware&lt;AuthorizationMiddleware>()
+    .UseMiddleware&lt;EnpointMiddleware>();
+
+WebApplication app = builder.build(); 
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </section>
+                        
+                    <section>
+                        <div style="display: flex;padding: 3rem;">
+                            <div style="flex: 1;border-right: 1px solid grey;padding-right: 3rem;">
+                                <h3 class="slide-subtitle">Benefits</h3>
+                                <ul class="slide-bulletpoints">
+                                    <li style="color: #06d6a0;font-weight: 600;">Single Responsibility Principle</li>
+                                    <ul>
+                                        <li>Decouple the sender of a request from its receiver(s).</li>
+                                    </ul>
+                                    <li style="color: #06d6a0;font-weight: 600;">Open/Closed Principle</li>
+                                    <ul>
+                                        <li>Introduce new handlers without breaking existing code.</li>
+                                        <li>Add or change responsibilities for handling a request by adding to or changing the chain at runtime.</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; padding-left: 3rem;">
+                                <h3 class="slide-subtitle">Limitations</h3>
+                                <ul class="slide-bulletpoints">
+                                    <li>a request has <strong style="color: #f95d6f;">no explicit receiver.</strong></li> 
+                                    <li style="list-style: none;">There’s no guarantee it’ll be handled.</li>
+                                    <li style="list-style: none;"><strong style="color: #f95d6f;">The request</strong> can <strong style="color: #f95d6f;">fall off</strong> the end of <strong style="color: #f95d6f;">the chain.</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
                 </section>
             </div>
         </div>
