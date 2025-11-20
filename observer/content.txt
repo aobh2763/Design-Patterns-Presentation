@@ -1,0 +1,53 @@
+# Example :
+
+Observer Pattern (stack overflow)
+
+Naive approach : use chain of responsibility (each module sends to the next)
+
+-> observer (one sends to a lot)
+
+# Intent :
+
+Behavioral design pattner
+Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically
+
+(put image)
+
+# Context :
+
+Multiple objects should be notified for every event that happens to the object they're observing (Publisher)
+
+- The Oberserved object notifies the subscribers when an event happens (its state changes)
+    -> The obversed object must contain a reference to all the subscribers
+
+We'll call it the Publisher
+
+- The Observers are completely independant
+- However, they share the same functionality : react when notified by the object they're observing
+    -> The subscribers must implement a shared interface
+
+We'll call them the Subscribers
+
+# Example :
+
+SmallTalk (language) MVC (19)
+...
+
+Data stored in memory, change the view when the data changes
+-> view observes model
+-> realtime updates
+
+GUI Data Analysis Tool, data received from a live data field, only when the data changes :
+- Update the table
+- Update the graph
+- Send an email if it exceeds a certain limit
+
+We could use polling, but:
+- it's memory-intensive
+- may react late to certain changes
+- every source has to poll the data on it's own, every time we add something we need to remake the polling code
+
+class diagram + table of roles + code ... (just the observer parts)
+
+# Pros and cons :
+...

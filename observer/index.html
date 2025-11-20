@@ -9,14 +9,55 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>
-                    <section>text1.1</section>
-                    <section>text1.2</section>
-                </section>
-                <section>
-                    <section>text2.1</section>
-                    <section>text2.2</section>
-                </section>
+                    <section data-auto-animate>
+                        <div>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 3em;">Another situation...</h2>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <div>
+                            <img src="/assets/stack-overflow-question.png" alt="Stack Overflow question" style="max-width:125%;">
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <div>
+                            Requirements :
+                            <ul>
+                                <li>Multi-process architecture.</li>
+                                <li>A chain of handlers linked up by queues.</li>
+                                <li>Each handler forwards the request and THEN starts working on it.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <div>
+                            Proposed Solution : Using Chain of Responsibility.
+                            <img src="/assets/falsechainofresponsibility.png">
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <div>
+                            The handlers are tasked with forwarding the request and handling it, breaking the single responsibility principle.
+                            We can decouple these two responsibilities.
+                            <img src="/assets/observertease.png" style="width: 50%;">
+                            <b>-> Observer design pattern</b>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate>
+                        <h2>Intent</h2>
+                        <p>Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they're observing.</p>
+                        <img src="/assets/observer.png">
+                    </section>
+
+                    <section>
+                        <h2>Intent</h2>
+                        <p>It defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.</p>
+                    </section>
             </div>
         </div>
         <script type="module" src="/src/main.ts"></script>
