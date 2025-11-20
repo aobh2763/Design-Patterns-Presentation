@@ -1,5 +1,10 @@
-.slide-title, .slide-subtitle
+.slide-title
 {
+    text-transform: none !important;
+    margin-top: 2rem !important;
+}
+
+.slide-subtitle {
     text-transform: none !important;
 }
 
