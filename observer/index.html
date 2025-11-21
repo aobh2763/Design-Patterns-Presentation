@@ -9,57 +9,319 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                    <section data-auto-animate>
+                <section>
+                    <section data-auto-animate data-background-gradient="radial-gradient(circle,rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 class="slide-title">Title <strong style="color: #f92672;">in Color</strong></h2>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate>
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Content + <strong style="color: #f92672;">Code</strong></h2>
+
+                            <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 3rem;">
+                                <div style="text-align: start;padding: 3rem;flex: 1;">
+                                    stuff
+                                    </ul>
+                                </div>
+                                <div style="flex: 1;">
+                                    <pre>
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-11|9-10|6-8|13-19" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem;">
+class B
+{
+public:
+    B(A a): _a(a) {}
+    
+    void m2() { 
+        _a.m1(); 
+    }    
+private:
+    A _a;
+};
+
+class A
+{
+public:
+    void m1() { 
+        std::println("Message Received"); 
+    }    
+};
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Regular Content</h2>
+
+                            <div style="margin-top: 3rem;margin-left: 3rem;">
+                                part 1
+                                <div class="fragment" style="text-align: start;font-size: 2rem;">
+                                    part 2
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate="" style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Three sections</h2>
+
+                            <div style="display: flex; justify-content: space-around;margin-top: 5rem;gap: 2rem;padding-left: 2rem;padding-right: 2rem;">
+                                <div style="flex: 1; padding: 0.5rem;border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1);">
+                                    <h4 style="text-transform: none;color: #06d6a0;">one</h4>
+                                    <hr>
+                                    content
+                                </div>
+
+                                <div class="fragment" style="flex: 1; padding: 0.5rem;border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1)">
+                                    <h4 style="text-transform: none;color: #06d6a0;">two</h4>
+                                    <hr>
+                                    content
+                                </div>
+
+                                <div class="fragment" style="flex: 1; padding: 0.5rem;border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1)">
+                                    <h4 style="text-transform: none;color: #06d6a0;">three</h4>
+                                    <hr>
+                                    content
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Image</h2>
+
+                            <div style="margin-top: 5rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/ASP.NETChain.drawio.png" alt="" style="border-radius: 5px;margin: 0;border: 1px solid white;filter: invert(1);"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">title</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">code + boxed info</h2>
+                            
+                            <div style="display: flex;margin-top: 6rem;align-items: center;">
+                                <div style="flex: 1;">
+                                    <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 1.2rem;
+                                        color: #eee;
+                                    ">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|3-9|11-20|15-19" style="background-color: black; border-radius: 5px">
+public class Client
+{
+    public Client(
+        private EndpointRoutingMiddleware routing, 
+        private AuthenticationMiddleware authen, 
+        private HostFilteringMiddleware filtering, 
+        private LoggingMiddleware logging, 
+        private EndpointMiddleware endpoint
+    ) {}
+
+    public void sendRequest(String uri)
+    {
+        HttpContext context = createHttpContext(uri);
+        
+        if(routing.handle(context) == BREAK) return;
+        if(authen.handle(context) == BREAK) return;
+        if(filtering.handle(context) == BREAK) return;
+        if(logging.handle(context) == BREAK) return;
+        if(endpoint.handle(context) == BREAK) return;
+    }
+}
+                                        </code>
+                                    </pre>
+                                </div>
+    
+                                <div style="text-align: start;flex: 1;">
+                                    <div style="max-width: 630px;background: rgba(115, 115, 115, 0.1); border: 1px solid white;padding: 1rem;border-radius: 5px;">
+                                        <h4 class="slide-subtitle" style="font-size: 3rem;text-align: center;">stuff</h4>
+                                        <hr>
+                                        cont
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
                         <div>
                             <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 3em;">Another situation...</h2>
                         </div>
                     </section>
 
-                    <section data-auto-animate>
-                        <div>
-                            <img src="/assets/stack-overflow-question.png" alt="Stack Overflow question" style="max-width:125%;">
+                    <section style="height: 100%;">
+                        <div style="height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                            <div style="width: 1200px; height: auto;">
+                                <img src="/assets/stack-overflow-question.png" alt="Stack Overflow question" style="margin: 0;padding: 0;width: 100%;height: auto;">
+                            </div>
                         </div>
                     </section>
 
-                    <section data-auto-animate>
-                        <div>
-                            Requirements :
-                            <ul>
-                                <li>Multi-process architecture.</li>
-                                <li>A chain of handlers linked up by queues.</li>
-                                <li>Each handler forwards the request and THEN starts working on it.</li>
-                            </ul>
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Requirements</h2>
+
+                            <div style="margin-top: 4rem;margin-left: 5rem;">
+                                <ul style="text-align: start;font-size: 3rem;">
+                                    <li style="margin-bottom: 2rem;" class="fragment">Multi-process architecture.</li>
+                                    <li style="margin-bottom: 2rem;" class="fragment">A bunch of handlers linked up by queues.</li>
+                                    <li style="margin-bottom: 2rem;" class="fragment">Each handler must receive the request.</li>
+                                </ul>
+                            </div>
                         </div>
                     </section>
 
-                    <section data-auto-animate>
-                        <div>
-                            Proposed Solution : Using Chain of Responsibility.
-                            <img src="/assets/falsechainofresponsibility.png">
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Proposed Solution</h2>
+
+                            <div style="width: 1500px; height: auto; margin-top: 5rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/falsechainofresponsibility.png" alt="" style="margin: 0; width: 100%;"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">Using Chain of Responsibility</p>                               
+                            </div>
                         </div>
                     </section>
 
-                    <section data-auto-animate>
-                        <div>
-                            The handlers are tasked with forwarding the request and handling it, breaking the single responsibility principle.
-                            We can decouple these two responsibilities.
-                            <img src="/assets/observertease.png" style="width: 50%;">
-                            <b>-> Observer design pattern</b>
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%; max-width: 1500px; ">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Proposed Solution</h2>
+
+                            <div style="margin: 4rem auto; max-width: 1500px; padding: 0 2rem;">
+                                <ul style="text-align: start; font-size: 3rem; margin: 0;">
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">The order in which the handlers are placed doesn't matter.</li>
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">The handlers are tasked with forwarding the request and handling it, breaking the single responsibility principle.</li>
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">We can decouple these two responsibilities.</li>
+                                </ul>
+                            </div>
                         </div>
                     </section>
 
-                    <section data-auto-animate>
-                        <h2>Intent</h2>
-                        <p>Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they're observing.</p>
-                        <img src="/assets/observer.png">
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Proposed Solution</h2>
+
+                            <div style="height: auto; margin-top: 5rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observertease.png" alt="" style="margin: 0; width: 60%;"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">The intent is completely different from Chain of Responsibility!</p>                               
+                            </div>
+                        </div>
                     </section>
 
                     <section>
-                        <h2>Intent</h2>
-                        <p>It defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.</p>
+                        <div>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 3em;">Observer</h2>
+                        </div>
                     </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                            <h2 style="margin-top: 4px; text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Intent</h2>
+                            <div style="height: calc(100% - 5rem); display:flex; align-items:flex-start; justify-content:flex-start; gap:2.5rem; padding:2.5rem 3rem;">
+                                <div style="flex:1.2; padding:2rem 0; text-align:left;">
+                                    <p style="font-size:2.2rem; line-height:1.25; max-width:1200px; margin:0;">
+                                        Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they're observing.
+                                    </p>
+                                </div>
+                            <div style="flex:2.5; display:flex; justify-content:flex-start; align-items:flex-start;">
+                                <img src="/assets/observer.png" alt="Observer diagram" style="width:100%; max-width:1400px; height:auto; display:block;">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                            <h2 style="margin-top: 4px; text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Intent</h2>
+                        <div style="height: calc(100% - 5rem); display:flex; align-items:flex-start; justify-content:flex-start; gap:2.5rem; padding:2.5rem 3rem;">
+                            <div style="flex:1.2; padding:2rem 0; text-align:left;">
+                                <p style="font-size:2.2rem; line-height:1.25; max-width:1200px; margin:0;">
+                                    It defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+                                </p>
+                            </div>
+                            <div style="flex:2.5; display:flex; justify-content:flex-start; align-items:flex-start;">
+                                <img src="/assets/observer.png" alt="Observer diagram" style="width:100%; max-width:1400px; height:auto; display:block;">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%; max-width: 1500px; ">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="margin: 4rem auto; max-width: 1500px; padding: 0 2rem;">
+                                <ul style="text-align: start; font-size: 3rem; margin: 0;">
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">The oberserved object notifies the subscribers when an event happens (its state changes).</li>
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">The obversed object must contain a reference to all of them.</li>
+                                </ul>
+                                <span class="fragment" style="margin-top: 10px;"><hr> We'll call it the <strong style="color: rgb(0, 146, 24);">"Observable"</strong>.</span>                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 4rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observer_observable.png" alt="" style="margin: 0; width: 50%;"> 
+                                <p style="text-align: center;font-size: 1.5rem;">Structure of Observable</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%; max-width: 1500px; ">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="margin: 4rem auto; max-width: 1500px; padding: 0 2rem;">
+                                <ul style="text-align: start; font-size: 2.5rem; margin: 0;">
+                                    <li style="margin-bottom: 1rem;" class="fragment">The observing objects are completely independant.</li>
+                                    <li style="margin-bottom: 1rem;" class="fragment">However, they share the same functionality : <i>react when notified by the object they're observing.</i></li>
+                                    <li style="margin-bottom: 1rem;" class="fragment">They must all implement a shared interface.</li>
+                                </ul>
+                                <span class="fragment"><hr> We'll call them the <strong style="color: rgb(0, 146, 24);">"Observers"</strong>.</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 4rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observer_observer.png" alt="" style="margin: 0; width: 25%;"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">Structure of Observers</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 4rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observer_structure.png" alt="" style="margin: 0; width: 60%;"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">Observer Design Pattern</p>                               
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section>
+                        <div>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Example :</h2>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Data Visualisation Application</h2>
+                        </div>
+                    </section>
+                </section>
             </div>
         </div>
         <script type="module" src="/src/main.ts"></script>
     </body>
 </html>
+</div>

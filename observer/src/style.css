@@ -1,0 +1,18 @@
+.slide-title
+{
+    text-transform: none !important;
+    margin-top: 2rem !important;
+}
+
+.slide-subtitle {
+    text-transform: none !important;
+}
+
+.slide-bulletpoints
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-size: 2rem;
+    text-align: start;
+}
