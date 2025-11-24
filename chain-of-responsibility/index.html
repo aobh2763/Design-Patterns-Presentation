@@ -66,14 +66,18 @@
                                 <div style="text-align: start;padding: 3rem;flex: 1;">
                                     <ul class="slide-bulletpoints">
                                         <li style="margin-bottom: 2rem;color:#06d6a0;"><strong>Messages</strong> <span style="color: white;">passed between objects.</span></li>
-                                        <li style="color: #6fc5ff;font-weight: 600;">Queries:</li>
-                                        <ul>
-                                            <li>A request to <strong style="color: #06d6a0;">retrieve data.</strong></li>
-                                        </ul>
-                                        <li style="color: #6fc5ff;font-weight: 600;margin-top: 1rem;">Commands:</li>
-                                        <ul>
-                                            <li>A request to <strong style="color: #06d6a0;">perform logic.</strong></li>
-                                        </ul>
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;">Queries:</li>
+                                            <ul>
+                                                <li>A request to <strong style="color: #06d6a0;">retrieve data.</strong></li>
+                                            </ul>
+                                        </div>
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;margin-top: 1rem;">Commands:</li>
+                                            <ul>
+                                                <li>A request to <strong style="color: #06d6a0;">perform logic.</strong></li>
+                                            </ul>
+                                        </div>
                                     </ul>
                                 </div>
                                 <div style="flex: 1;">
@@ -118,15 +122,19 @@ public:
                             <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 3rem;">
                                 <div style="text-align: start;padding: 3rem;flex: 3;">
                                     <ul class="slide-bulletpoints">
-                                        <li style="color: #6fc5ff;font-weight: 600;">Encapsulates state/config:</li>
-                                        <ul>
-                                            <li>Passed around between <span style="color: #06d6a0;font-weight: bold;">collaborating objects.</span></li>
-                                        </ul>
-                                        <li style="color: #6fc5ff;font-weight: 600;margin-top: 2rem;">Prevents Parameter Explosion:</li>
-                                        <ul>
-                                            <li>Instead of passing 10 parameters to every function.</li>
-                                            <li style="color: #06d6a0;font-weight: bold;">You pass one context object.</li>
-                                        </ul>
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;">Encapsulates state/config:</li>
+                                            <ul>
+                                                <li>Passed around between <span style="color: #06d6a0;font-weight: bold;">collaborating objects.</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;margin-top: 2rem;">Prevents Parameter Explosion:</li>
+                                            <ul>
+                                                <li>Instead of passing 10 parameters to every function.</li>
+                                                <li style="color: #06d6a0;font-weight: bold;">You pass one context object.</li>
+                                            </ul>
+                                        </div>
                                     </ul>
                                 </div>
                                 <div style="flex: 2;">
@@ -170,24 +178,23 @@ private:
                         <div style="height: 100%;">
                             <h2 class="slide-title">A Re-occurring Situation</h2>
 
-                            <div style="margin-top: 3rem;margin-left: 3rem;">
+                            <div style="margin-top: 5rem;margin-left: 3rem;">
                                 <ul class="slide-bulletpoints" style="font-size: 2rem;">
                                     <li>An object wants to perform a request: <span style="color: #06d6a0; font-weight: bold;">Sender</span></li>
-                                    <li>The request can have <span style="color: #6fc5ff; font-weight: bold;">more than one handler:</span> <span style="color: #06d6a0; font-weight: bold;">Receiver(s)</span></li>
-                                    <li style="margin-bottom: 5rem;">Ideally, the sender <span style="color: #6fc5ff; font-weight: bold;">should not be coupled</span> with all the potential receivers.</li>
-
+                                    <li>The request can have <span style="color: #6fc5ff; font-weight: bold;">more than one potential handler:</span> <span style="color: #06d6a0; font-weight: bold;">Receiver(s)</span></li>
                                 </ul>
-                                <div class="fragment" style="text-align: start;font-size: 2rem;">
+                                <div class="fragment" style="margin-top: 3rem;text-align: start;font-size: 2rem;">
                                     <h4 style="text-transform: none;">Constraints:</h4>
                                     <ul>
-                                        <li style="margin-bottom: 1rem;">Handlers process the request <span style="color: #f92672;font-weight: bold;">sequentially.</span></li>
+                                        <li style="margin-bottom: 1rem;">The request will eventually be <span style="color: #f92672;font-weight: bold;">handled by one receiver.</span></li>
                                         <div class="fragment">
                                             <li style="margin-bottom: 1rem;">Each handler can decide to either:</li>
-                                            <ul>
+                                            <ul style="margin-bottom: 1rem;">
                                                 <li>Perform the query or command and <span style="color: #f92672;font-weight: bold;">end further processing of the request.</span></li>
-                                                <li><span style="color: #f92672;font-weight: bold;">Pass the request</span> to the next handler.</li>
+                                                <li>Reject the request and let other handlers process it.</li>
                                             </ul>
                                         </div>
+                                        <li class="fragment" style="margin-bottom: 1rem;">Handlers process the request <span style="color: #f92672;font-weight: bold;">sequentially.</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -525,7 +532,42 @@ public class Client
                         </div>
                     </section>
 
-                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem;">Related Patterns</h2>
+
+                            <div style="margin-top: 7rem;">
+                                <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 1.2rem;
+                                        color: #eee;
+                                    ">
+                                    <code class="language-cpp" data-trim data-noescape data-line-numbers style="padding: 1rem;border-radius: 8px;font-size: 1.3rem;background-color: black;">
+//...
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+
+//...
+
+app.Run();
+
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
                         <div style="height: 100%;">
                             <h2 class="slide-title" style="font-size: 4rem;">Related Patterns</h2>
 
