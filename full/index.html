@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Observer</title>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;display: flex;">
+                            <div style="flex: 1;border-right: 1px solid white;display: flex;flex-direction: column;justify-content: space-between;align-items: center;padding: 3rem;">
+                                <h3 style="text-transform: none;">Chain of Responsibility</h3>
+                                <img src="/assets/chain-of-responsibility.png" width="100%" alt="">
+                                <p style="font-size: 1.8rem;"><span style="font-weight: bold;">Karim Khili</span></p>
+                            </div>
+
+                            <div style="flex:1;display: flex;flex-direction: column;justify-content: space-between;align-items: center;padding: 3rem;">
+                                <h3 style="text-transform: none;">Observer</h3>
+                                <img src="/assets/observer.png" width="100%" alt="">
+                                <p style="font-size: 1.8rem;"><span style="font-weight: bold;">Ahmed Omar Ben Hazem</span></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate data-background-gradient="radial-gradient(circle,rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 class="slide-title">Plan</h2>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate>
+                        <div style="height: 100%;">
+                            <h2 style="text-transform: none;margin-top: 2rem;">Plan</h2>
+                            <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin-top: 5rem;">
+                                <ul>
+                                    <li style="color: #6fc5ff;font-weight: bold;">Object collaboration</li>
+                                    <ul>
+                                        <li>Requests <span style="font-weight: bold;color: #f92672;">in OOP</span></li>
+                                        <li>Contexts <span style="font-weight: bold;color: #f92672;">in OOP</span></li>
+                                    </ul>
+                                    <li style="color: #6fc5ff;font-weight: bold;margin-top: 3rem;">Behavioral Design patterns</li>
+                                    <ul>
+                                        <li>Chain of Responsibility</li>
+                                        <li>Observer</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate data-background-gradient="radial-gradient(circle,rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 class="slide-title">Requests <strong style="color: #f92672;">in OOP</strong></h2>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate>
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Requests <strong style="color: #f92672;">in OOP</strong></h2>
+
+                            <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 3rem;">
+                                <div style="text-align: start;padding: 3rem;flex: 1;">
+                                    <ul class="slide-bulletpoints">
+                                        <li style="margin-bottom: 2rem;color:#06d6a0;"><strong>Messages</strong> <span style="color: white;">passed between objects.</span></li>
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;">Queries:</li>
+                                            <ul>
+                                                <li>A request to <strong style="color: #06d6a0;">retrieve data.</strong></li>
+                                            </ul>
+                                        </div>
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;margin-top: 1rem;">Commands:</li>
+                                            <ul>
+                                                <li>A request to <strong style="color: #06d6a0;">perform logic.</strong></li>
+                                            </ul>
+                                        </div>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1;">
+                                    <pre>
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-11|9-10|6-8|13-19" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem; overflow: hidden;">
+class Client
+{
+public:
+    Client(Service s): service(s) {}
+    
+    void performRequest() { 
+        service.handleRequest(); 
+    }    
+private:
+    Service service;
+};
+
+class Service
+{
+public:
+    void handleRequest() { 
+        std::println("Message Received"); 
+    }    
+};
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate data-background-gradient="radial-gradient(circle,rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 class="slide-title">Contexts <strong style="color: #f92672;">in OOP</strong></h2>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate>
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Contexts <strong style="color: #f92672;">in OOP</strong></h2>
+
+                            <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 3rem;">
+                                <div style="text-align: start;padding: 3rem;flex: 3;">
+                                    <ul class="slide-bulletpoints">
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;">Encapsulates state/config:</li>
+                                            <ul>
+                                                <li>Passed around between <span style="color: #06d6a0;font-weight: bold;">collaborating objects.</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="fragment">
+                                            <li style="color: #6fc5ff;font-weight: 600;margin-top: 2rem;">Prevents Parameter Explosion:</li>
+                                            <ul>
+                                                <li>Instead of passing 10 parameters to every function.</li>
+                                                <li style="color: #06d6a0;font-weight: bold;">You pass one context object.</li>
+                                            </ul>
+                                        </div>
+                                    </ul>
+                                </div>
+                                <div style="flex: 2;">
+                                    <pre>
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-7|9-14|16-27|20-23" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem; overflow: hidden;">
+struct IPContext {
+    int version;
+    int identifiant;
+    std::string source;
+    std::string destination;
+    byte[] payload;
+};
+
+class Connection {
+public:
+    void send(IPContext c) {
+        // magic...
+    }
+};
+
+class Client {
+public:
+    Client(Connection cnx) : connection(cnx) {}
+    
+    void send(byte[] payload) {
+        IPContext context = createIPContext(payload);
+        connection.send(context);
+    }
+    
+private:
+    Connection connection;
+};
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">A Re-occurring Situation</h2>
+
+                            <div style="margin-top: 5rem;margin-left: 3rem;">
+                                <ul class="slide-bulletpoints" style="font-size: 2rem;">
+                                    <li>An object wants to perform a request: <span style="color: #06d6a0; font-weight: bold;">Sender</span></li>
+                                    <li>The request can have <span style="color: #6fc5ff; font-weight: bold;">more than one potential handler:</span> <span style="color: #06d6a0; font-weight: bold;">Receiver(s)</span></li>
+                                </ul>
+                                <div class="fragment" style="margin-top: 3rem;text-align: start;font-size: 2rem;">
+                                    <h4 style="text-transform: none;">Constraints:</h4>
+                                    <ul>
+                                        <li style="margin-bottom: 1rem;">The request will eventually be <span style="color: #f92672;font-weight: bold;">handled by one receiver.</span></li>
+                                        <div class="fragment">
+                                            <li style="margin-bottom: 1rem;">Each handler can decide to either:</li>
+                                            <ul style="margin-bottom: 1rem;">
+                                                <li>Perform the query or command and <span style="color: #f92672;font-weight: bold;">end further processing of the request.</span></li>
+                                                <li>Reject the request and let other handlers process it.</li>
+                                            </ul>
+                                        </div>
+                                        <li class="fragment" style="margin-bottom: 1rem;">Handlers process the request <span style="color: #f92672;font-weight: bold;">sequentially.</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate="" data-background-gradient="radial-gradient(circle,rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 class="slide-title">Real World Examples</h2>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate="" style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Real World Examples</h2>
+
+                            <div style="display: flex; justify-content: space-around;margin-top: 5rem;gap: 2rem;padding-left: 2rem;padding-right: 2rem;">
+                                <div style="flex: 1; padding: 0.5rem;border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1);">
+                                    <h4 style="text-transform: none;color: #06d6a0;">HTTP Middleware</h4>
+                                    <hr>
+                                    <div>
+                                        <p style="font-size: 1.8rem;margin-bottom: 2rem;"><span style="color: #6fc5ff; font-weight: bold;">In web frameworks,</span> middleware components process <span style="color: #6fc5ff; font-weight: bold;">HTTP requests</span> in sequence.</p>
+                                        <p style="font-size: 1.8rem;">Each middleware can handle, modify, or pass the request down the chain.</p>
+                                    </div>
+                                </div>
+
+                                <div class="fragment" style="flex: 1; padding: 0.5rem;border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1)">
+                                    <h4 style="text-transform: none;color: #06d6a0;">Event Handling</h4>
+                                    <hr>
+                                    <div>
+                                        <p style="font-size: 1.8rem;margin-bottom: 2rem;"><span style="font-weight: bold; color: #6fc5ff;">When an event occurs in a web page,</span> it travels from the target element to the top element (window) passing through intermediate elements in the hierarchy.</p>
+                                    </div>
+                                </div>
+
+                                <div class="fragment" style="flex: 1; padding: 0.5rem;border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1)">
+                                    <h4 style="text-transform: none;color: #06d6a0;">Workflows</h4>
+                                    <hr>
+                                    <div>
+                                        <p style="font-size: 1.8rem;margin-bottom: 2rem;">More specifically <span style="color: #6fc5ff;font-weight: bold;">Automation Workflows.</span></p>
+                                        <p style="font-size: 1.8rem;margin-bottom: 2rem;">Tools like <span style="color: #6fc5ff;font-weight: bold;">n8n</span> let you define chains of handlers that execute in sequence to accomplish complex tasks.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">HTTP Middleware</h2>
+
+                            <div style="margin-top: 5rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/ASP.NETChain.drawio.png" alt="" style="border-radius: 5px;margin: 0;border: 1px solid white;filter: invert(1);"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;"><span style="font-weight: bold;">ASP.NET</span> Middleware architecture</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Attempts at a Solution</h2>
+                            
+                            <div style="display: flex;margin-top: 6rem;align-items: center;">
+                                <div style="flex: 1;">
+                                    <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 1.2rem;
+                                        color: #eee;
+                                    ">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|3-9|11-20|15-19" style="background-color: black; border-radius: 5px; overflow: hidden;">
+public class Client
+{
+    public Client(
+        private EndpointRoutingMiddleware routing, 
+        private AuthenticationMiddleware authen, 
+        private HostFilteringMiddleware filtering, 
+        private LoggingMiddleware logging, 
+        private EndpointMiddleware endpoint
+    ) {}
+
+    public void sendRequest(String uri)
+    {
+        HttpContext context = createHttpContext(uri);
+        
+        if(routing.handle(context) == BREAK) return;
+        if(authen.handle(context) == BREAK) return;
+        if(filtering.handle(context) == BREAK) return;
+        if(logging.handle(context) == BREAK) return;
+        if(endpoint.handle(context) == BREAK) return;
+    }
+}
+                                        </code>
+                                    </pre>
+                                </div>
+    
+                                <div style="text-align: start;flex: 1;">
+                                    <div style="max-width: 630px;background: rgba(115, 115, 115, 0.1); border: 1px solid white;padding: 1rem;border-radius: 5px;">
+                                        <h4 class="slide-subtitle" style="font-size: 3rem;text-align: center;">Naïve Approach</h4>
+                                        <hr>
+                                        <ul style="font-size: 1.8rem;padding-top: 1rem;padding-bottom: 2rem;" class="slide-bulletpoints">
+                                            <li class="fragment">A series of function calls.</li>
+                                            <li class="fragment" style="color: #f92672;font-weight: bold;">Cons:</li>
+                                            <ul class="fragment" style="font-size: 1.8rem;">   
+                                                <li><span style="color: #6fc5ff;font-weight: bold;">Hard coupling</span> between the sender and the receivers.</li>
+                                                <li>Can't change handlers or their order <span style="color: #6fc5ff;font-weight: bold;">at runtime.</span></li>
+                                            </ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Attempts at a Solution</h2>
+
+                            <div style="display: flex;justify-content: space-around;margin-top: 3rem;align-items: center;padding-right: 2rem;">
+                                <div>
+                                    <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 1.2rem;
+                                        color: #eee;
+                                    ">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-4|8|10-21|14-20" style="padding-right: 8rem;background-color: black; border-radius: 10px; max-height:fit-content; overflow: hidden;">
+public interface Handler
+{
+    void handle(Context context);
+}
+
+public class Client
+{
+    public Client(private List&lt;Handler> handlers) {}
+
+    public void sendRequest(String uri)
+    {
+        HttpContext context = createHttpContext(uri);
+
+        foreach(var handler in handlers)
+        {
+            if(handler.handle(context) == BREAK)
+            {
+                break;
+            }
+        }
+    }
+}
+                                        </code>
+                                    </pre>
+                                </div>
+    
+                                <div style="text-align: start;">
+                                    <div style="max-width: 700px;background: rgba(115, 115, 115, 0.1); border: 1px solid white;padding: 1rem;border-radius: 5px;">
+                                        <h4 class="slide-subtitle" style="font-size: 3rem;text-align: center;">A Dynamic Array</h4>
+                                        <hr>
+                                        <ul style="font-size: 1.8rem;padding-top: 1rem;padding-bottom: 2rem;" class="slide-bulletpoints">
+                                            <li>We store handlers in a <span style="color: #6fc5ff;font-weight: bold;">dynamic array.</span></li>
+                                            <li class="fragment" style="color: #06d6a0;font-weight: bold;">Pros:</li>
+                                            <ul class="slide-bulletpoints fragment">
+                                                <li style="max-width: 500px;"><span style="color: #6fc5ff;font-weight: bold;">Handler interface: </span>Decouples the sender from the receivers.</li>
+                                                <li><span style="color: #6fc5ff;font-weight: bold;">Add and remove handlers at runtime.</span></li>
+                                            </ul>
+                                            
+                                            <li class="fragment" style="color: #f92672;font-weight: bold;">Cons:</li>
+                                            <ul class="slide-bulletpoints fragment">
+                                                <li>Mediocre to <span style="color: #6fc5ff;font-weight: bold;">low Performance.</span> </li>
+                                                <li>Insertion and deletion are expensive operations: <span style="color: #6fc5ff;font-weight: bold;">Memory reallocations.</span></li>
+                                            </ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title">Solution</h2>
+
+                            <div style="display: flex;justify-content: space-around;margin-top: 3rem;align-items: center;padding-right: 2rem;">
+                                <div>
+                                    <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 1.2rem;
+                                        color: #eee;
+                                    ">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-4|6-12|14-33|16-27|35-44" style="padding-right: 8rem;background-color: black; border-radius: 5px; max-height: 500px; overflow: hidden;">
+public interface Handler
+{
+    void handle(Context context);
+}
+
+public abstract class BaseHandler implements Handler
+{
+    private next: Handler;
+
+    void handle(Context context);
+    Handler setNext(Handler handler);
+}
+
+public class ConcreteHandler : BaseHandler
+{
+    void handle(Context context)
+    {
+        if(canHandler(context))
+        {
+            //Process the request and end further processing...
+        }
+        else
+        {
+            //Pass the request down the chain...
+            next.handle(context);
+        }
+    }
+
+    Handler setNext(Handler handler)
+    {
+        next = handler;
+    }
+}
+
+public class Client
+{
+    public Client(private Handler firstHandler) {}
+
+    public void sendRequest(string uri)
+    {
+        HttpContext context = createHttpContext(uri);
+        firstHandler.handle(context);
+    }
+}
+                                        </code>
+                                    </pre>
+                                </div>
+    
+                                <div style="text-align: start;">
+                                    <div style="max-width: 700px;background: rgba(115, 115, 115, 0.1); border: 1px solid white;padding: 1rem;border-radius: 5px;">
+                                        <h4 class="slide-subtitle" style="font-size: 3rem;text-align: center;">Chain Of Responsibility</h4>
+                                        <hr>
+                                        <ul style="font-size: 1.8rem;padding-top: 1rem;padding-bottom: 2rem;" class="slide-bulletpoints">
+                                            <li>We use a <span style="color: #6fc5ff;font-weight: bold;">Linked List.</span></li>
+                                            <li class="fragment" style="color: #06d6a0;font-weight: bold;">Pros:</li>
+                                            <ul class="slide-bulletpoints fragment">
+                                                <li style="max-width: 450px;"><span style="color: #6fc5ff;font-weight: bold;">Handler interface: </span>Decouples the sender from the receivers.</li>
+                                                <li><span style="color: #6fc5ff;font-weight: bold;">Add and remove handlers at runtime.</span></li>
+                                                <li>Optimal performance.</li>
+                                            </ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 style="text-transform: none;">Chain of Responsibility</h2>
+                            <div style="display: flex;justify-content: center;">
+                                <img src="/assets/Diagramme_de_classe_COR_1.png" style="border-radius: 8px 0px 0px 8px;margin: 0;padding: 0;height: 650px;filter: invert(1);" alt="">
+                                <img src="/assets/Diagramme_de_classe_COR_2.png" style="border-radius: 0px 8px 8px 0px;margin: 0;padding: 0;height: 650px;filter: invert(1);" alt="">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 style="text-transform: none;">Chain of Responsibility</h2>
+                            <div style="display: flex;justify-content: center;">
+                                <img src="/assets/Diagramme_de_classe_COR_1.png" style="border-radius: 8px 0px 0px 8px;margin: 0;padding: 0;height: 650px;filter: invert(1);" alt="">
+                                <img src="/assets/Diagramme_de_classe_COR_2.png" style="border-radius: 0px 8px 8px 0px;margin: 0;padding: 0;height: 650px;filter: invert(1);opacity: 0.2;" alt="">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem;">Related Patterns</h2>
+
+                            <div style="margin: 3rem;text-align: start;">
+                                <h3 class="slide-subtitle" style="font-size: 3rem;">Decorator vs CoR</h3>
+
+                                <div style="display: flex;justify-content: center;">
+                                    <img src="/assets/DecoratorvsCoR.png" width="60%" alt="" style="filter: invert(1);border-radius: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem;">Related Patterns</h2>
+
+                            <div style="margin: 3rem;margin-top: 5rem;text-align: start;">
+                                <h3 class="slide-subtitle" style="font-size: 3rem;">Decorator vs CoR</h3>
+
+                                <div style="display: flex;justify-content: center;">
+                                    <ul style="font-size: 2rem;">
+                                        <li>The same class diagram.</li>
+                                        <li>But <span style="color: #6fc5ff;font-weight: bold;">they differ in intent:</span></li>
+                                        <ul>
+                                            <li style="margin-top: 1rem;">A <span style="color: #06d6a0;font-weight: bold;">Decorator</span> <span style="color: #6fc5ff;font-weight: bold;">adds functionality</span> to an existing object.</li>
+                                            <li  style="margin-top: 1rem;">In a CoR, a <span style="color: #06d6a0;font-weight: bold;">Handler</span> has two roles:</li>
+                                            <ul>
+                                                <li><span style="color: #6fc5ff;font-weight: bold;">Process</span> the request.</li>
+                                                <li>Determine if it needs further processing.</li>
+                                            </ul>
+                                        </ul>
+                                    </ul>
+                                    <img src="/assets/DecoratorvsCoR.png" width="50%" alt="" style="filter: invert(1);border-radius: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 style="text-transform: none;">Chain of Responsibility</h2>
+                            <div style="display: flex;justify-content: center;">
+                                <img src="/assets/Diagramme_de_classe_COR_1.png" style="border-radius: 8px 0px 0px 8px;margin: 0;padding: 0;height: 650px;filter: invert(1);" alt="">
+                                <img src="/assets/Diagramme_de_classe_COR_2.png" style="border-radius: 0px 8px 8px 0px;margin: 0;padding: 0;height: 650px;filter: invert(1);" alt="">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 style="text-transform: none;">Chain of Responsibility</h2>
+                            <div style="display: flex;justify-content: center;">
+                                <img src="/assets/Diagramme_de_classe_COR_1.png" style="border-radius: 8px 0px 0px 8px;margin: 0;padding: 0;height: 650px;filter: invert(1);opacity: 0.2;" alt="">
+                                <img src="/assets/Diagramme_de_classe_COR_2.png" style="border-radius: 0px 8px 8px 0px;margin: 0;padding: 0;height: 650px;filter: invert(1);" alt="">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem;">Related Patterns</h2>
+
+                            <div style="margin-top: 7rem;">
+                                <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 1.2rem;
+                                        color: #eee;
+                                    ">
+                                    <code class="language-cpp" data-trim data-noescape data-line-numbers style="padding: 1rem;border-radius: 8px;font-size: 1.3rem;background-color: black; overflow: hidden;">
+//...
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+
+//...
+
+app.Run();
+
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem;">Related Patterns</h2>
+
+                            <div style="margin: 3rem;text-align: start;">
+                                <h3 class="slide-subtitle" style="font-size: 3rem;">Builder</h3>
+                                <ul class="slide-bulletpoints" style="margin-left: 5rem;">
+                                    <li>Handler chains are <span style="color: #6fc5ff;font-weight: bold;">complex objects</span> that are <span style="color: #6fc5ff;font-weight: bold;">built progressively.</span></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 1.2rem;
+                                        color: #eee;
+                                    ">
+                                    <code class="language-cpp" data-trim data-noescape data-line-numbers style="padding: 1rem;border-radius: 8px;font-size: 1.3rem;background-color: black; overflow: hidden;">
+//...
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+
+//...
+
+app.Run();
+
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </section>
+                        
+                    <section data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="display: flex;padding: 3rem;justify-content: space-around;gap: 2rem;padding-left: 2rem;padding-right: 2rem;">
+                            <div style="flex: 1;border: 1px solid grey;padding-right: 3rem;padding: 2rem;background-color: rgba(115, 115, 115, 0.1);border-radius: 10px;">
+                                <h4 style="font-size: 3rem;" class="slide-subtitle">Benefits</h4>
+                                <hr>
+                                <ul class="slide-bulletpoints">
+                                    <li class="fragment" style="color: #06d6a0;font-weight: 600;">Single Responsibility Principle</li>
+                                    <ul>
+                                        <li class="fragment">Decouple the sender of a request from its receiver(s).</li>
+                                    </ul>
+                                    <li class="fragment" style="color: #06d6a0;font-weight: 600;">Open/Closed Principle</li>
+                                    <ul>
+                                        <li class="fragment">Introduce new handlers without breaking existing code.</li>
+                                        <li class="fragment">Add or change responsibilities by adding to or changing the chain at runtime.</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; border: 1px solid grey;padding-right: 3rem;padding: 2rem;background-color: rgba(115, 115, 115, 0.1);border-radius: 10px;">
+                                <h4 style="font-size: 3rem;" class="slide-subtitle">Limitations</h4>
+                                <hr>
+                                <ul class="slide-bulletpoints fragment">
+                                    <li>A request has <strong style="color: #f92672;">no explicit receiver.</strong></li> 
+                                    <li style="list-style: none;">There’s no guarantee it’ll be handled.</li>
+                                    <li style="list-style: none;"><strong style="color: #f92672;">The request</strong> can <strong style="color: #f92672;">fall off</strong> the end of <strong style="color: #f92672;">the chain.</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 3em;">Another situation...</h2>
+                        </div>
+                    </section>
+
+                    
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem; color: rgb(205, 7, 86); margin-bottom: 2em;">Another situation...</h2>
+
+                            <div style="margin: 3rem;text-align: start;">
+
+                                <div style="display: flex;justify-content: center;">
+                                    <img src="/assets/stack-overflow-question.png" width="100%" alt="" style="border-radius: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)" data-auto-animate="">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="font-size: 4rem; color: rgb(205, 7, 86);">Another situation...</h2>
+
+                            <div style="margin-top: 10rem;text-align: start;">
+
+                                <div style="display: flex;justify-content: space-around;">
+                                    <ul style="text-align: start;font-size: 2rem;max-width: 50%">
+                                        <li style="margin-bottom: 4rem;" class="fragment">A lot of services.</li>
+                                        <li style="margin-bottom: 4rem;" class="fragment">Each service must receive a request.</li>
+                                        <li style="margin-bottom: 4rem;" class="fragment">The context of the request is represented by an object.</li>
+                                    </ul>
+                                    <img src="/assets/stack-overflow-question.png" alt="" style="border-radius: 10px; max-width: 1200px; height: 300px;">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Proposed Solution</h2>
+
+                            <div style="width: 1500px; height: auto; margin-top: 10rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/falsechainofresponsibility.png" alt="" style="margin: 0; width: 100%;"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">Using Chain of Responsibility</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Proposed Solution</h2>
+
+                            <div style="width: 1500px; height: auto; margin-top: 4rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/falsechainofresponsibility.png" alt="" style="margin: 0; width: 100%;"> 
+                                <p style="text-align: center;font-size: 1.5rem;">Using Chain of Responsibility</p>                               
+                            </div>
+
+                            <div style="margin: 6rem auto; margin-top: 1em; max-width: 1500px; padding: 0 2rem;">
+                                <ul style="text-align: start; font-size: 3rem; margin: 0;">
+                                    <li style="margin-bottom: 2rem;" class="fragment">The order in which the handlers are placed <b style="color: #06d6a0;">doesn't matter</b>.</li>
+                                    <li style="margin-bottom: 2rem;" class="fragment">The handlers are tasked with forwarding the request and handling it, breaking the single responsibility principle.</li>
+                                    <li style="margin-bottom: 2rem;" class="fragment">We can <b style="color: #06d6a0;">decouple</b> these two responsibilities.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Proposed Solution</h2>
+
+                            <div style="height: auto; margin-top: 5rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observertease.png" alt="" style="margin: 0; height: 550px;"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">The intent is completely different from Chain of Responsibility!</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 3em;">Observer</h2>
+                        </div>
+                    </section>                  
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <h2 style="margin-top: 24px; margin-bottom: 24px; text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Intent</h2>
+                        <div style="width: 100%; display:flex; align-items:flex-start; justify-content:flex-start; gap:2.5rem; padding:2.5rem 3rem; align-self: center; justify-self: center;">
+                            <div>
+                                <img src="/assets/observer.png" alt="Observer diagram" style="max-width:1400px; height: 450px; display:block;">
+                            </div>
+                            <div style="flex:1.2; padding:2rem 0; text-align:left;">
+                                <div style="flex: 1;border: 1px solid grey;padding-right: 3rem;padding: 2rem;margin-left: 12px;margin-right: 12px; background-color: rgba(115, 115, 115, 0.1);border-radius: 10px;">
+                                    <p style="font-size:3rem; line-height:1.25; max-width:1200px; margin:0; margin-left: 12px;margin-right: 12px; padding-left: 10px">
+                                        Observer is a <b style="color: #6fc5ff;">behavioral design pattern</b> that lets you define a <b style="color: #06d6a0;">subscription mechanism</b> to notify multiple objects about any events that happen to the object they're observing.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>                    
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <h2 style="margin-top: 24px; margin-bottom: 24px; text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Intent</h2>
+                        <div style="width: 100%; display:flex; align-items:flex-start; justify-content:flex-start; gap:2.5rem; padding:2.5rem 3rem; align-self: center; justify-self: center;">
+                            <div style="flex:1.2; padding:2rem 0; text-align:left;">
+                                <div style="flex: 1;border: 1px solid grey;padding-right: 3rem;padding: 2rem;margin-left: 12px;margin-right: 12px; background-color: rgba(115, 115, 115, 0.1);border-radius: 10px;">
+                                    <p style="font-size:3rem; line-height:1.25; max-width:1200px; margin:0; margin-left: 12px; margin-right: 12px; padding-left: 10px">
+                                        It defines a <b style="color: #06d6a0;">one-to-many dependency</b> between objects so that when the one object <b style="color: #06d6a0;">changes state</b>, all its dependents are notified and updated <b style="color: #6fc5ff;">automatically</b>.
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="/assets/observer.png" alt="Observer diagram" style="max-width:1400px; height: 450px; display:block;">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%; max-width: 1500px; ">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 4rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="margin: 4rem auto; max-width: 1500px; padding: 0 2rem;">
+                                <ul style="text-align: start; font-size: 3rem; margin: 0;">
+                                    <li style="margin-bottom: 3rem;" class="fragment">The oberserved object <b style="color: #06d6a0;">notifies</b> the subscribers when an event happens (its state changes).</li>
+                                    <li style="margin-bottom: 3rem;" class="fragment">The observed object <b style="color: #6fc5ff;">knows</b> all of the observers.</li>
+                                </ul>
+                                <span class="fragment" style="font-size: 4rem; margin-top: 24px;"><hr> We'll call it the <strong style="color: rgb(0, 146, 24);">"Observable"</strong>.</span>                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 4rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observer_observable.png" alt="" style="margin: 0; width: 40%;"> 
+                                <p style="text-align: center;font-size: 1.5rem;">Structure of Observable</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%; max-width: 1500px; ">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 4rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="margin: 4rem auto; max-width: 1500px; padding: 0 2rem;">
+                                <ul style="text-align: start; font-size: 2.5rem; margin: 0;">
+                                    <li style="margin-bottom: 3rem;" class="fragment">The observing objects are <b style="color: #06d6a0;">completely independant</b>.</li>
+                                    <li style="margin-bottom: 3rem;" class="fragment">However, they share the <b style="color: #06d6a0;">same functionality</b> : <i>react when notified by the object they're observing.</i></li>
+                                    <li style="margin-bottom: 3rem;" class="fragment">They must all implement a <b style="color: #6fc5ff;">shared interface</b>.</li>
+                                </ul>
+                                <span class="fragment" style="font-size: 4rem; margin-top: 12px;"><hr> We'll call them the <b style="color: rgb(0, 146, 24);">"Observers"</b>.</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 4rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observer_observer.png" alt="" style="margin: 0; width: 20%;"> 
+                                <p style="text-align: center;font-size: 1.5rem;">Structure of Observers</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 4rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/observer_structure.png" alt="" style="margin: 0; width: 50%;"> 
+                                <p class="fragment" style="text-align: center;font-size: 1.5rem;">Observer Design Pattern</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate="" style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 4rem; font-size: 5rem;">Real World Applications</h2>
+
+                            <div style="display: flex; justify-content: space-around;margin-top: 6rem;gap: 2rem;padding-left: 2rem;padding-right: 2rem; font-size: 2.5rem;">
+                                <div class="fragment" style="flex: 1; padding: 0.5rem; padding-bottom: 2em; border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1);">
+                                    <h4 style="text-transform: none;color: #06d6a0; font-size: 3rem;">GUI Event Listeners</h4>
+                                    <hr>
+                                    Buttons, sliders, or text fields <b style="color: #6fc5ff;">notify multiple listeners</b> when their state changes (a button click triggers multiple UI updates, for example).
+                                </div>
+
+                                <div class="fragment" style="flex: 1; padding: 0.5rem; padding-bottom: 2em; border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1)">
+                                    <h4 style="text-transform: none;color: #06d6a0; font-size: 3rem;">Game Development</h4>
+                                    <hr>
+                                    Entities such as enemies <b style="color: #6fc5ff;">observe</b> player actions; when the player moves or attacks, observers react accordingly.
+                                </div>
+
+                                <div class="fragment" style="flex: 1; padding: 0.5rem; padding-bottom: 2em; border: 1px solid grey;padding: 1rem;border-radius: 5px;background: rgba(115, 115, 115, 0.1)">
+                                    <h4 style="text-transform: none;color: #06d6a0; font-size: 3rem;">Real-Time Logging Systems</h4>
+                                    <hr>
+                                    Various logging outputs (such as the console or files) <b style="color: #6fc5ff;"></b>subscribe</b> to application events to record them in real-time.
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Example :</h2>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 2em;">Data Visualisation Application</h2>
+                        </div>
+                    </section>
+                    
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Example</h2>
+
+                            <div style="width: 1500px; height: auto; margin-top: 3rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/appui.png" alt="" style="margin: 0; width: 70%;">                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%; max-width: 1500px; ">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Example</h2>
+
+                            <div style="margin: 4rem auto; max-width: 1500px; padding: 0 2rem;">
+                                <ul style="text-align: start; font-size: 3rem; margin: 0;">
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">Stock information received through a <b style="color: #06d6a0;">Streaming API</b>.</li>
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">Application data is stored <b style="color: #6fc5ff;">in-memory</b>.</li>
+                                    <li style="margin-bottom: 1.5rem;" class="fragment">Three modules that need to be <b style="color: #6fc5ff;">notified</b> when the stock data changes :
+                                        <ul style="margin-top: 1rem; margin-left: 2rem;" class="fragment">
+                                            <li style="margin-bottom: 1rem;">A <b style="color: #f92672;">table</b> displaying stock information.</li>
+                                            <li style="margin-bottom: 1rem;">A <b style="color: #f92672;">graph</b> plotting stock price changes over time.</li>
+                                            <li style="margin-bottom: 1rem;">A <b style="color: #f92672;">notification system</b> alerting users of significant stock price movements.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 3rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/appstructure.png" alt="" style="margin: 0; width: 60%;"> 
+                                <p style="text-align: center;font-size: 1.5rem;">Structure of our application</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 3rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <table border="1" style="font-size: 2.4rem; margin: 4rem; margin-top: 0; background: rgba(115, 115, 115, 0.2);">
+                                    <tr style="font-size: 3rem; background: rgba(215, 115, 115, 0.2)">
+                                        <th style="color: #f92672;">Class</th>
+                                        <th style="color: #f92672;">Structure</th>
+                                        <th style="color: #f92672;">Role</th>
+                                    </tr>
+                                    <tr class="fragment">
+                                        <td style="color: #06d6a0;">Stock</td>
+                                        <td>Observable</td>
+                                        <td>Holds the <b style="color: #6fc5ff;">state</b> (price) and <b style="color: #6fc5ff;">notifies</b> observers when it changes.</td>
+                                    </tr>
+                                    <tr class="fragment">
+                                        <td style="color: #06d6a0;">Observer</td>
+                                        <td>Observer</td>
+                                        <td>Defines the method that reacts to <b style="color: #6fc5ff;">updates</b> from the observable.</td>
+                                    </tr>
+                                    <tr class="fragment">
+                                        <td style="color: #06d6a0;">TableFacade / NotificationFacade / GraphingFacade</td>
+                                        <td>ConcreteObserver</td>
+                                        <td>Implements the observer interface to update the UI components <b style="color: #6fc5ff;">when notified</b>.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; font-size: 5rem;">Structure</h2>
+
+                            <div style="height: auto; margin-top: 3rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <img src="./assets/appclass.png" alt="" style="margin: 0; width: 65%;"> 
+                                <p style="text-align: center;font-size: 1.5rem;">Class diagram</p>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; margin-bottom: 3rem; font-size: 5rem;">Implementation</h2>
+
+                            <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 2rem;
+                                        color: #eee;
+                                        height: 70%;
+                                    ">
+                                <code class="language-java" data-trim data-noescape data-line-numbers="|5-7|14-20|22-34" style="background-color: black; border-radius: 5px; overflow: hidden;">
+import java.util.ArrayList;
+import java.util.List;
+
+public class Stock {
+    private List&lt;Observer&gt; subscribers = new ArrayList&lt;&gt;();
+    private String name;
+    private float price;
+
+    public Stock(String name, float price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public void subscribe(Observer obs) {
+        subscribers.add(obs);
+    }
+
+    public void unsubscribe(Observer obs) {
+        subscribers.remove(obs);
+    }
+
+    public void notifySubscribers() {
+        for (Observer subscriber : subscribers) {
+            subscriber.update(this);
+        }
+    }
+
+    public void setPrice(float newPrice) {
+        // Notify the observers only if the price changes
+        if (this.price != newPrice) {
+            this.price = newPrice;
+            notifySubscribers();
+        }
+    }
+
+    public float getPrice() {
+        return this.price;
+    }
+}
+                                </code>
+                            </pre>
+                            <p style="text-align: center;font-size: 1.5rem;">Implementation of the Observable</p>      
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; margin-bottom: 3rem; font-size: 5rem;">Implementation</h2>
+
+                            <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 2rem;
+                                        color: #eee;
+                                        height: 70%;
+                                    ">
+                                <code class="language-java" data-trim data-noescape data-line-numbers="|1-3|5-13|15-25|27-35" style="background-color: black; border-radius: 5px; overflow: hidden;">
+public interface Observer {
+    public void update(Stock context);
+}
+
+public class TableFacade implements Observer {
+    private Table table;
+
+    @Override
+    public void update(Stock context) {
+        // Update the Table
+        table.updateTable(context);
+    }
+}
+
+public class NotificationFacade implements Observer {
+    private Notifier notifier;
+
+    @Override
+    public void update(Stock context) {
+        // Send a notification if a certain limit is exceeded
+        if (context.getPrice() >= PRICE_CEILING) {
+            notifier.sendNotification();
+        }
+    }
+}
+
+public class GraphingFacade implements Observer {
+    private Graph graph;
+
+    @Override
+    public void update(Stock context) {
+        // Update the graph
+        graph.updateGraph(context);
+    }
+}
+                                </code>
+                            </pre>
+                            <p style="text-align: center;font-size: 1.5rem;">Implementation of the Observers</p>      
+                        </div>
+                    </section>
+
+                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="height: 100%;">
+                            <h2 class="slide-title" style="color: rgb(205, 7, 86); margin-top: 3rem; margin-bottom: 3rem; font-size: 5rem;">Implementation</h2>
+
+                            <pre style="
+                                        background: #111;
+                                        border-radius: 12px;
+                                        font-size: 2rem;
+                                        color: #eee;
+                                        height: 70%;
+                                    ">
+                                <code class="language-java" data-trim data-noescape data-line-numbers="|4|6-12|14-25|27-41" style="background-color: black; border-radius: 5px; overflow: hidden;">
+import okhttp3.*;
+
+public class Main {
+    static Stock stock = new Stock("StockA", 50.4f);
+
+    public static void setupAPI() {
+        OkHttpClient client = new OkHttpClient();
+
+        // Building the request
+        Request request = new Request.Builder()
+                .url("https://realstock.com/api")
+                .build();
+
+        // Defining the listener's behavior
+        EventSourceListener listener = new EventSourceListener() {
+            @Override
+            public void onEvent(EventSource source, String id, String type, String data) {
+                float newPrice = Float.parseFloat(data);
+                stock.setPrice(newPrice);
+            }
+        };
+
+        // Build the source, send the request and link it to the listener
+        EventSources.createFactory(client).newEventSource(request, listener);
+    }
+
+    public static void main(String[] args) {
+        // Setup observers
+        TableFacade tableFacade = new TableFacade(new Table());
+        NotificationFacade notificationFacade = new NotificationFacade(new Notifier());
+        GraphFacade graphFacade = new GraphFacade(new Graph());
+
+        stock.subscribe(tableFacade);
+        stock.subscribe(notificationFacade);
+        stock.subscribe(graphFacade);
+
+        setupAPI();
+
+        Application app = new Application();
+        app.run();
+    }
+}
+                                </code>
+                            </pre>
+                            <p style="text-align: center;font-size: 1.5rem;">Implementation of the Observers</p>      
+                        </div>
+                    </section>
+
+                    <section data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div style="display: flex;padding: 3rem;justify-content: space-around;gap: 2rem;padding-left: 2rem;padding-right: 2rem;">
+                            <div style="flex: 1;border: 1px solid grey;padding-right: 3rem;padding: 2rem;background-color: rgba(115, 115, 115, 0.1);border-radius: 10px;">
+                                <h4 style="font-size: 3rem;" class="slide-subtitle">Benefits</h4>
+                                <hr>
+                                <ul class="slide-bulletpoints">
+                                    <li class="fragment" style="color: #06d6a0;font-weight: 600;">Open/Closed Principle</li>
+                                    <ul>
+                                        <li class="fragment">You can introduce new observer classes <b style="color: #6fc5ff;">without having to change</b> the observable's code.</li>
+                                    </ul>
+                                    <li class="fragment" style="color: #06d6a0;font-weight: 600;">Single Responsibility Principle</li>
+                                    <ul>
+                                        <li class="fragment">Each observer handles its own reaction to the update.</li>
+                                        <li class="fragment">The observable only manages state and notifications.</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; border: 1px solid grey;padding-right: 3rem;padding: 2rem;background-color: rgba(115, 115, 115, 0.1);border-radius: 10px;">
+                                <h4 style="font-size: 3rem;" class="slide-subtitle">Limitations</h4>
+                                <hr>
+                                <ul class="slide-bulletpoints">
+                                    <li class="fragment" style="margin-right: 0.5em; margin-top: 1em; margin-bottom: 1em;">Observers are notified in random order.</li>
+                                    <li class="fragment" style="margin-right: 0.5em; margin-bottom: 1em;">The observable <b style="color: #6fc5ff;">doesn’t know</b> its observers, but their reactions might indirectly depend on it.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 style="text-transform: none; color: rgb(205, 7, 86); font-size: 4em;">Thank you for your attention!</h2>
+                        </div>
+                    </section>           
+                </section>
+            </div>
+        </div>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>
+</div>

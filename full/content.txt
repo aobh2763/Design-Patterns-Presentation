@@ -1,0 +1,200 @@
+# Example :
+
+Observer Pattern (stack overflow)
+
+Naive approach : use chain of responsibility (each module sends to the next)
+
+-> observer (one sends to a lot)
+
+# Intent :
+
+Behavioral design pattner
+Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically
+
+(put image)
+
+# Context :
+
+Multiple objects should be notified for every event that happens to the object they're observing (Publisher)
+
+- The Oberserved object notifies the subscribers when an event happens (its state changes)
+    -> The obversed object must contain a reference to all the subscribers
+
+We'll call it the Publisher
+
+- The Observers are completely independant
+- However, they share the same functionality : react when notified by the object they're observing
+    -> The subscribers must implement a shared interface
+
+We'll call them the Subscribers
+
+# Example :
+
+SmallTalk (language) MVC (19)
+...
+
+Data stored in memory, change the view when the data changes
+-> view observes model
+-> realtime updates
+
+GUI Data Analysis Tool, data received from a live data field, only when the data changes :
+- Update the table
+- Update the graph
+- Send an email if it exceeds a certain limit
+
+We could use polling, but:
+- it's memory-intensive
+- may react late to certain changes
+- every source has to poll the data on it's own, every time we add something we need to remake the polling code
+
+class diagram + table of roles + code ... (just the observer parts)
+
+consuming a streaming api :
+import okhttp3.*;
+import okhttp3.sse.EventSource;
+import okhttp3.sse.EventSourceListener;
+import okhttp3.sse.EventSources;
+
+public class SSEClient {
+    public static void main(String[] args) {
+        OkHttpClient client = new OkHttpClient();
+
+        // Building the request
+        Request request = new Request.Builder()
+                .url("https://realstock.com/api")
+                .build();
+
+        // Defining the listener's behavior
+        EventSourceListener listener = new EventSourceListener() {
+            @Override
+            public void onEvent(EventSource source, String id, String type, String data) {
+                Stock.setPrice(Float(data));
+            }
+        };
+
+        // Build the source, send the request and link it to the listener
+        EventSources.createFactory(client).newEventSource(request, listener);
+    }
+}
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Stock {
+    private List<Observer> subscribers = new ArrayList<>();
+    private String name;
+    private float price;
+
+    public Stock(String name, float price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public void subscribe(Observer obs) {
+        subscribers.add(obs);
+    }
+
+    public void unsubscribe(Observer obs) {
+        subscribers.remove(obs);
+    }
+
+    public void notifySubscribers() {
+        for (Observer subscriber : subscribers) {
+            subscriber.update(this);
+        }
+    }
+
+    public float getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(float newPrice) {
+        // Notify the observers only if the price changes
+        if (this.price != newPrice) {
+            this.price = newPrice;
+            notifySubscribers();
+        }
+    }
+}
+
+public interface Observer {
+    public void update(Stock context);
+}
+
+public class TableFacade implements Observer {
+    private Table table;
+
+    @Override
+    public void update(Stock context) {
+        // Update the Table
+        table.updateTable(context);
+    }
+}
+
+public class NotificationFacade implements Observer {
+    private Notifier notifier;
+
+    @Override
+    public void update(Stock context) {
+        // Send a notification if a certain limit is exceeded
+        if (context.getPrice() >= PRICE_CEILING) {
+            notifier.sendNotification();
+        }
+    }
+}
+
+public class GraphingFacade implements Observer {
+    private Graph graph;
+
+    @Override
+    public void update(Stock context) {
+        // Update the graph
+        graph.updateGraph(context);
+    }
+}
+
+import okhttp3.*;
+
+public class Main {
+    static Stock stock = new Stock("StockA", 50.4f);
+
+    public void setupAPI() {
+        OkHttpClient client = new OkHttpClient();
+
+        // Building the request
+        Request request = new Request.Builder()
+                .url("https://realstock.com/api")
+                .build();
+
+        // Defining the listener's behavior
+        EventSourceListener listener = new EventSourceListener() {
+            @Override
+            public void onEvent(EventSource source, String id, String type, String data) {
+                float newPrice = Float.parseFloat(data);
+                stock.setPrice(newPrice);
+            }
+        };
+
+        // Build the source, send the request and link it to the listener
+        EventSources.createFactory(client).newEventSource(request, listener);
+    }
+
+    public static void main(string[] args) {
+        // Setup observers
+        Table table = new Table();
+        Notifier notifier = new Notifier();
+        Graph graph = new Graph();
+
+        stock.subscribe(new TableFacade(table));
+        stock.subscribe(new NotificationFacade(notifier, 150f));
+        stock.subscribe(new GraphingFacade(graph));
+
+        setupAPI();
+
+        Application app = new Application();
+        app.run();
+    }
+}
+
+# Pros and cons :
+...
