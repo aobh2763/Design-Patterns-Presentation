@@ -65,7 +65,7 @@
                             <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 3rem;">
                                 <div style="text-align: start;padding: 3rem;flex: 1;">
                                     <ul class="slide-bulletpoints">
-                                        <li style="margin-bottom: 2rem;color:#06d6a0;"><strong>Messages</strong> <span style="color: white;">passed between objects.</span></li>
+                                        <li style="margin-bottom: 2rem;color: #6fc5ff;"><span style="font-weight: bold;">A sent a request to B:</span> <span style="color: white;">a method implemented by A called a method implemented by B.</span></li>
                                         <div class="fragment">
                                             <li style="color: #6fc5ff;font-weight: 600;">Queries:</li>
                                             <ul>
@@ -80,7 +80,7 @@
                                         </div>
                                     </ul>
                                 </div>
-                                <div style="flex: 1;">
+                                <div class="fragment" style="flex: 1;">
                                     <pre>
                                         <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-11|9-10|6-8|13-19" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem; overflow: hidden;">
 class Client
@@ -122,7 +122,7 @@ public:
                             <div style="display: flex;align-items: center;justify-content: space-between;padding-right: 3rem;margin-top: 3rem;">
                                 <div style="text-align: start;padding: 3rem;flex: 3;">
                                     <ul class="slide-bulletpoints">
-                                        <div class="fragment">
+                                        <div>
                                             <li style="color: #6fc5ff;font-weight: 600;">Encapsulates state/config:</li>
                                             <ul>
                                                 <li>Passed around between <span style="color: #06d6a0;font-weight: bold;">collaborating objects.</span></li>
@@ -137,9 +137,9 @@ public:
                                         </div>
                                     </ul>
                                 </div>
-                                <div style="flex: 2;">
+                                <div class="fragment" style="flex: 2;">
                                     <pre>
-                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-7|9-14|16-27|20-23" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem; overflow: hidden;">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-7|9-20|18-19|13-16|22-27" style="background-color: black;padding: 1rem;border-radius: 8px;font-size: 1.3rem; overflow: hidden;">
 struct IPContext {
     int version;
     int identifiant;
@@ -148,24 +148,24 @@ struct IPContext {
     byte[] payload;
 };
 
-class Connection {
+class Client {
+public:
+    Client(CoucheReseau cr) : coucheReseau(cr) {}
+    
+    void send(byte[] payload) {
+        IPContext context = createIPContext(payload);
+        coucheReseau.send(context);
+    }
+    
+private:
+    CoucheReseau coucheReseau;
+};
+
+class CoucheReseau {
 public:
     void send(IPContext c) {
         // magic...
     }
-};
-
-class Client {
-public:
-    Client(Connection cnx) : connection(cnx) {}
-    
-    void send(byte[] payload) {
-        IPContext context = createIPContext(payload);
-        connection.send(context);
-    }
-    
-private:
-    Connection connection;
 };
                                         </code>
                                     </pre>
@@ -174,13 +174,19 @@ private:
                         </div>
                     </section>
 
-                    <section style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                    <section data-auto-animate data-background-gradient="radial-gradient(circle,rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
+                        <div>
+                            <h2 class="slide-title">A Re-occurring Situation</h2>
+                        </div>
+                    </section>
+
+                    <section data-auto-animate style="height: 100%;" data-background-gradient="linear-gradient(90deg, rgba(10, 34, 41, 1) 0%, rgba(7, 7, 41, 1) 95%)">
                         <div style="height: 100%;">
                             <h2 class="slide-title">A Re-occurring Situation</h2>
 
                             <div style="margin-top: 5rem;margin-left: 3rem;">
                                 <ul class="slide-bulletpoints" style="font-size: 2rem;">
-                                    <li>An object wants to perform a request: <span style="color: #06d6a0; font-weight: bold;">Sender</span></li>
+                                    <li>An object wants to send a request: <span style="color: #06d6a0; font-weight: bold;">Sender</span></li>
                                     <li>The request can have <span style="color: #6fc5ff; font-weight: bold;">more than one potential handler:</span> <span style="color: #06d6a0; font-weight: bold;">Receiver(s)</span></li>
                                 </ul>
                                 <div class="fragment" style="margin-top: 3rem;text-align: start;font-size: 2rem;">
@@ -320,10 +326,10 @@ public class Client
                                         font-size: 1.2rem;
                                         color: #eee;
                                     ">
-                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-4|8|10-21|14-20" style="padding-right: 8rem;background-color: black; border-radius: 10px; max-height:fit-content; overflow: hidden;">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|8|1-4|10-21|14-20" style="padding-right: 8rem;background-color: black; border-radius: 10px; max-height:fit-content; overflow: hidden;">
 public interface Handler
 {
-    void handle(Context context);
+    void handle(HttpContext context);
 }
 
 public class Client
@@ -383,7 +389,7 @@ public class Client
                                         font-size: 1.2rem;
                                         color: #eee;
                                     ">
-                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-4|6-12|14-33|16-27|35-44" style="padding-right: 8rem;background-color: black; border-radius: 5px; max-height: 500px; overflow: hidden;">
+                                        <code class="language-cpp" data-trim data-noescape data-line-numbers="|1-4|6-13|15-29|31-40|33|35-39" style="padding-right: 8rem;background-color: black; border-radius: 5px; max-height: 500px; overflow: hidden;">
 public interface Handler
 {
     void handle(Context context);
@@ -391,10 +397,11 @@ public interface Handler
 
 public abstract class BaseHandler implements Handler
 {
-    private next: Handler;
-
-    void handle(Context context);
-    Handler setNext(Handler handler);
+    private Handler next;
+    Handler setNext(Handler handler)
+    {
+        next = handler;
+    }
 }
 
 public class ConcreteHandler : BaseHandler
@@ -410,11 +417,6 @@ public class ConcreteHandler : BaseHandler
             //Pass the request down the chain...
             next.handle(context);
         }
-    }
-
-    Handler setNext(Handler handler)
-    {
-        next = handler;
     }
 }
 
@@ -497,12 +499,14 @@ public class Client
                                         <li>The same class diagram.</li>
                                         <li>But <span style="color: #6fc5ff;font-weight: bold;">they differ in intent:</span></li>
                                         <ul>
-                                            <li style="margin-top: 1rem;">A <span style="color: #06d6a0;font-weight: bold;">Decorator</span> <span style="color: #6fc5ff;font-weight: bold;">adds functionality</span> to an existing object.</li>
-                                            <li  style="margin-top: 1rem;">In a CoR, a <span style="color: #06d6a0;font-weight: bold;">Handler</span> has two roles:</li>
-                                            <ul>
-                                                <li><span style="color: #6fc5ff;font-weight: bold;">Process</span> the request.</li>
-                                                <li>Determine if it needs further processing.</li>
-                                            </ul>
+                                            <li class="fragment" style="margin-top: 1rem;">A <span style="color: #06d6a0;font-weight: bold;">Decorator</span> <span style="color: #6fc5ff;font-weight: bold;">adds functionality</span> to an existing object.</li>
+                                            <div class="fragment">
+                                                <li style="margin-top: 1rem;">In a CoR, a <span style="color: #06d6a0;font-weight: bold;">Handler</span> can either:</li>
+                                                <ul>
+                                                    <li><span style="color: #6fc5ff;font-weight: bold;">Process</span> the request.</li>
+                                                    <li>Pass the request down the chain.</li>
+                                                </ul>
+                                            </div>
                                         </ul>
                                     </ul>
                                     <img src="/assets/DecoratorvsCoR.png" width="50%" alt="" style="filter: invert(1);border-radius: 10px;">
